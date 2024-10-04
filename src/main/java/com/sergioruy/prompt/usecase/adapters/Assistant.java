@@ -1,4 +1,4 @@
-package com.sergioruy;
+package com.sergioruy.prompt.usecase.adapters;
 
 import io.quarkiverse.langchain4j.RegisterAiService;
 

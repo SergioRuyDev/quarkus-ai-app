@@ -1,27 +1,24 @@
-package com.sergioruy;
+package com.sergioruy.prompt.usecase;
 
-import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
-import org.jboss.resteasy.reactive.RestQuery;
+import com.sergioruy.prompt.usecase.adapters.Assistant;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Path("/prompt")
-public class PromptResource {
+@ApplicationScoped
+public class PromptService {
 
-    @Inject
-    Assistant assistant;
+    private final Assistant assistant;
+
+    public PromptService(Assistant assistant) {
+        this.assistant = assistant;
+    }
 
     private static final int MAX_CHAR_LIMIT = 1000; // Define your character limit here
     private final List<String> conversationHistory = new ArrayList<>(); // Maintain the conversation history
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String prompt(@RestQuery("message") String message) {
+    public String promptResponse(String message) {
         // Add user's message to the conversation history
         conversationHistory.add("You: " + message);
 

@@ -20,7 +20,10 @@ public class PromptResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.TEXT_PLAIN)
-    public String prompt(@RestQuery("message") String message) {
-        return promptService.promptResponse(message);
+    public String prompt(@RestQuery("id") String id, @RestQuery("message") String message) {
+        if (id == null || id.isEmpty()) {
+            id = "default-memory-id";
+        }
+        return promptService.promptResponse(id, message);
     }
 }
